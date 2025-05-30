@@ -1,1 +1,98 @@
-# CP-MACE
+# <span style="font-size:larger;">CP-MACE</span>
+
+This repository contains the MACE reference implementation developed by Ruoyu Wang and Shaoheng Fang.
+
+- [About CP-MACE](#about-mace)
+- [Installation](#installation)
+- [Dataset](#dataset)
+- [Usage](#usage)
+- [References](#references)
+- [Contact](#contact)
+
+## About CP-MACE
+
+CP-MACE (Constant-Potential MACE) is an extension of the MACE framework that enables constant-potential molecular simulations via machine learning force fields. It incorporates the number of electrons as an input and learns to predict the Fermi level as an additional output, allowing accurate modeling of electrochemical interfaces under grand canonical ensemble conditions.
+
+CP-MACE is built on the [MACE](https://github.com/ACEsuit/mace) architecture, which combines equivariant message passing neural networks with the Atomic Cluster Expansion (ACE) formalism for high-accuracy interatomic potential modeling.
+
+
+## Installation
+
+The easiest way to install it is to first install the regular MACE framework and then replace the original MACE directory with our modified version.
+
+Alternatively, if you prefer installing from source:
+1. Clone the original MACE repository:
+```sh
+git clone https://github.com/ACEsuit/mace.git
+```
+2. Replace the ./mace directory with the CP-MACE version provided.
+3. Install it via pip:
+```sh
+pip install ./mace
+```
+
+## Dataset
+CP-MACE uses the same xyz file format as the regular MACE framework, with one important addition: for each structure, you must include two extra tags after the atom count (i.e., the second line of each structure block) with the following format:
+```sh
+electron=XX potential=YY 
+```
+`electron` refers to the net charge in the system and `potential` refers to the Fermi level of the system. You can also supply the electron number as `electron`, which might be more convenient. For datasets containing only a single system type, both options are equivalent. However, if your dataset includes different systems with varying atom counts or chemical compositions, we strongly recommend using net charge instead of electron number, as the absolute electron numbers may differ significantly across systems and impair model training. An example for the data is:
+
+```sh
+202
+Lattice="11.798185 0.0 0.0 0.0 11.798185 0.0 0.0 0.0 33.342577" Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_energy=-873.98192526 pbc="T T T" potential=-3.407347 electron=661.7
+H        8.11218000       7.31211000      11.63614000      -0.35109000      -0.57477900      -0.54562900
+H        7.33506000       6.74093000      12.76225000      -0.53156400      -0.57238000       0.33610800
+H        4.18877000       6.81587000      18.30567000       1.48010700      -0.05893200       0.44728300
+……
+```
+
+## Usage
+
+### Training
+
+The training script for CP-MACE closely follows that of MACE. Below is a simple example:
+```sh
+mace_run_train \
+    --name="MACE_model" \
+    --train_file="train.xyz" \
+    --valid_fraction=0.05 \
+    --config_type_weights='{"Default":1.0}' \
+    --energy_key='REF_energy' \
+    --forces_key='REF_forces' \
+    --E0s='average' \
+    --model="FermiMACE" \
+    --loss="fermi_weighted" \
+    --error_table="Fermi_PerAtomRMSE" \
+    --forces_weight=100.0 \
+    --energy_weight=1.0 \
+    --potential_weight=10.0 \
+    --hidden_irreps='128x0e + 128x1o' \
+    --r_max=5.0 \
+    --batch_size=10 \
+    --max_num_epochs=300 \
+    --ema \
+    --ema_decay=0.99 \
+    --amsgrad \
+    --restart_latest \
+    --device=cuda \
+    --seed=1
+```
+
+Several additional arguments are introduced in CP-MACE to support constant-potential training:
+
+Use `--model=FermiMACE` to enable the node augmentation method (recommended). Alternatively, the global state method is also available by setting `--model=FermiMACE_2`.
+
+The loss function should be adjusted for Fermi level prediction by setting `--loss=fermi_weighted`.
+
+Use `--error_table=Fermi_PerAtomRMSE` to customize the error reporting.
+
+Tune the weight of the potential term via `--potential_weight=XX`.
+
+## References
+
+
+
+## Contact
+
+If you have any questions or find any bugs, feel free to contact us at yuanyue.liu@austin.utexas.edu.
