@@ -95,4 +95,4 @@ Tune the weight of the potential term via `--potential_weight=XX`.
 
 ## Contact
 
-If you have any questions or find any bugs, feel free to contact us at yuanyue.liu@austin.utexas.edu.
+If you encounter any issues or have questions, feel free to open an issue on this repository.
