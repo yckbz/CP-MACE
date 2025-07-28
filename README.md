@@ -112,7 +112,7 @@ If `read_velocity` is True, atomic velocities will be read from init.xyz; otherw
 
 In `integrator_config`, in addition to thermostat-related parameters, `timestep` is the simulation time step and `targetmu` is the target electrode potential. Currently, the slow growth calculation only supports using the distance between two atoms as the collective variable (CV). In `constraints`, the second and third parameters specify the indexes of the two atoms (as in the xyz file), and the fourth parameter is their distance. `increm` defines the change in distance at each time step. To perform a free MD simulation, simply set `constraints` to an empty list [].
 
-We also provide an initial structure `init.xyz` and two pre-trained models in `./simulate` as an example. You can run the simulation using:
+We also provide an initial structure `init.xyz` and two pre-trained models in `./simulation` as an example. You can run the simulation using:
 ```sh
 python simulate.py > log
 ```
