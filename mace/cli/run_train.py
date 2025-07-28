@@ -748,7 +748,7 @@ def run(args: argparse.Namespace) -> None:
             for name, subset in head_config.collections.tests:
                 test_sets[name] = [
                     data.AtomicData.from_config(
-                        config, z_table=z_table, cutoff=args.r_max, heads=heads, empty_potential_value=args.empty_potential_value,mean_electron=mean_electron,mean_potential=mean_potential
+                        config, z_table=z_table, cutoff=args.r_max, heads=heads, empty_potential_value=args.empty_potential_value
                     )
                     for config in subset
                 ]
