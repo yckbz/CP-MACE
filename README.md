@@ -89,6 +89,35 @@ Use `--error_table=Fermi_PerAtomRMSE` to customize the error reporting.
 
 Tune the weight of the potential term via `--potential_weight=XX`.
 
+### Simulation
+
+We provide a script in `./simulation` to run free MD and slow growth simulations. You can modify or extend the script based on your own needs.
+
+Parameters can be configured in inputs.yaml:
+
+```sh
+save_dir: result
+save_freq: 1
+steps: 100
+read_velocity: True
+force_threshold: 0.15
+fermi_threshold: 0.04
+T_init: 300.
+integrator: NoseHoover
+integrator_config: {"timestep": 1, "temperature": 300., "ttime": 40., "constraints": [[0,137,204,1.36091]], "increm": 0.001, "Mne": 660.74, "eta_length":2, "targetmu": -3.36}
+```
+`steps` defines the total number of simulation steps. 
+
+If `read_velocity` is True, atomic velocities will be read from init.xyz; otherwise, velocities will be initialized according to a Boltzmann distribution at temperature `T_init`. 
+
+In `integrator_config`, in addition to thermostat-related parameters, `timestep` is the simulation time step and `targetmu` is the target electrode potential. Currently, the slow growth calculation only supports using the distance between two atoms as the collective variable (CV). In `constraints`, the second and third parameters specify the indexes of the two atoms (as in the xyz file), and the fourth parameter is their distance. `increm` defines the change in distance at each time step. To perform a free MD simulation, simply set `constraints` to an empty list [].
+
+We also provide an initial structure `init.xyz` and two pre-trained models in `./simulate` as an example. You can run the simulation using:
+```sh
+python simulate.py > log
+```
+The log file will record the standard deviation of forces and Fermi levels, as well as the distance and gradient of the target CV. If the standard deviation of forces or Fermi levels exceeds the specified threshold, the structure will be saved to `save_dir/structures_force.xyz` or `save_dir/structures_fermi.xyz`, respectively.
+
 ## References
 
 
