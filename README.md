@@ -93,7 +93,7 @@ Tune the weight of the potential term via `--potential_weight=XX`.
 
 We provide some scripts in `./simulation` to run free MD, slow growth or metadynamics simulations. You can modify or extend the scripts based on your own needs.
 
-Taking slow growth as an example, we provide an initial structure `init.xyz` and two pre-trained models in `./simulation/slow_growth`. Parameters are configured in inputs.yaml:
+Taking slow growth as an example, we provide an initial structure `init.xyz` and two pre-trained models in `./simulation/slow_growth`. Parameters are configured in `inputs.yml`:
 
 ```sh
 save_dir: result
