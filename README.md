@@ -1,6 +1,6 @@
 # <span style="font-size:larger;">CP-MACE</span>
 
-<img width="935" height="554" alt="image" src="https://github.com/user-attachments/assets/fc7589c4-030e-4281-9207-bb0bb2998347" />
+<img width="60%" alt="image" src="https://github.com/user-attachments/assets/fc7589c4-030e-4281-9207-bb0bb2998347" />
 
 This repository contains the MACE reference implementation developed by Ruoyu Wang and Shaoheng Fang.
 
@@ -13,7 +13,7 @@ This repository contains the MACE reference implementation developed by Ruoyu Wa
 
 ## About CP-MACE
 
-CP-MACE (Constant-Potential MACE) is an extension of the MACE framework that enables constant-potential (cp) molecular simulations via machine learning force field (MLFF). It incorporates the number of electrons as an input and learns to predict the Fermi level as an additional output, allowing accurate modeling of electrochemical interfaces under grand canonical ensemble conditions.
+CP-MACE (Constant-Potential MACE) is an extension of the MACE framework that enables constant-potential (CP) molecular simulations via machine learning force field (MLFF). It incorporates the number of electrons as an input and learns to predict the Fermi level as an additional output, allowing accurate modeling of electrochemical interfaces under grand canonical ensemble conditions.
 
 CP-MACE is built on the [MACE](https://github.com/ACEsuit/mace) architecture, which combines equivariant message passing neural networks with the Atomic Cluster Expansion (ACE) formalism for high-accuracy interatomic potential modeling.
 
