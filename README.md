@@ -1,5 +1,7 @@
 # <span style="font-size:larger;">CP-MACE</span>
 
+<img width="935" height="554" alt="image" src="https://github.com/user-attachments/assets/fc7589c4-030e-4281-9207-bb0bb2998347" />
+
 This repository contains the MACE reference implementation developed by Ruoyu Wang and Shaoheng Fang.
 
 - [About CP-MACE](#about-mace)
@@ -119,7 +121,9 @@ python simulate.py > log
 The log file will record the standard deviation of forces and Fermi levels, as well as the distance and gradient of the target CV. If the standard deviation of forces or Fermi levels exceeds the specified threshold, the structure will be saved to `save_dir/structures_force.xyz` or `save_dir/structures_fermi.xyz`, respectively.
 ## References
 Please cite the paper below for using CP-MACE
+
 [Constant-Potential Machine Learning Force Field for the Electrochemical Interface](https://doi.org/10.1021/acs.jctc.5c00784)
+
 Ruoyu Wang, Shaoheng Fang, Qixing Huang, Yuanyue Liu*, Journal of Chemical Theory and Computation, 2025, DOI: 10.1021/acs.jctc.5c00784
 
 ## Contact
