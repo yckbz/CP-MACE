@@ -1,6 +1,6 @@
 # <span style="font-size:larger;">CP-MACE</span>
 
-<img width="60%" alt="image" src="https://github.com/user-attachments/assets/fc7589c4-030e-4281-9207-bb0bb2998347" />
+<img width="80%" alt="image" src="https://github.com/user-attachments/assets/fc7589c4-030e-4281-9207-bb0bb2998347" />
 
 This repository contains the MACE reference implementation developed by Ruoyu Wang and Shaoheng Fang.
 
